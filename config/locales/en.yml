@@ -2,14 +2,6 @@ en:
   shoppe:
     settings:
       labels:
-        stripe_api_key: Secret Key
-        stripe_publishable_key: Publishable Key
-        stripe_currency: Currency Code
-      
-      help:
-        stripe_api_key: This is the secret key starting with sk_ which is available from your Stripe dashboard
-        stripe_publishable_key: This is the publishable key starting with pk_ which is available from your Stripe dashboard
-        stripe_currency: This is the currency which should be sent to Stripe with each of your payment requests.
-      
-      defaults:
-        stripe_currency: USD
+        paypal_api_username: API Username
+        paypal_api_password: API Password
+        paypal_api_signature: API Signature
