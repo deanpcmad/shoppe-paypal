@@ -1,4 +1,4 @@
-# Stripe PayPal Module
+# PayPal Shoppe Module
 
 **Currently in development**
 
