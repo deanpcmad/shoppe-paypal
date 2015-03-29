@@ -2,6 +2,8 @@ module Shoppe
   module Paypal
     module OrderExtensions
       
+      # Create a PayPal payment and respond with the approval URL
+      # Requires return_url and cancel_url parameters
       def redirect_to_paypal(return_url, cancel_url)
         @payment = PayPal::SDK::REST::Payment.new({
           :intent => "sale",
@@ -17,12 +19,13 @@ module Shoppe
             :description => "Order #{self.number}" } ] } )
 
         if @payment.create
-          redirect_url = @payment.links.find{|v| v.method == "REDIRECT" }.href
+          @payment.links.find{|v| v.method == "REDIRECT" }.href
         elsif @payment.error
           raise Shoppe::Errors::PaymentDeclined, "There was an error contacting the payment processor"
         end
       end
 
+      # Accept a PayPal payment after redirected back to the Rails app
       def accept_paypal_payment(payment_id, token, payer_id)
         self.payments.create(amount: self.total, method: "PayPal", reference: payment_id, refundable: true, confirmed: false)
 
