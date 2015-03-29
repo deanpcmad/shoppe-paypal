@@ -1,10 +1,12 @@
 en:
   shoppe:
     settings:
+      paypal: PayPal
+
       labels:
         paypal_client_id: Client ID
         paypal_secret_id: Secret ID
-        paypal_currency: Currency
+        paypal_currency: Currency Code
 
       help:
         paypal_currency: The currency which should be sent to PayPal with each of your payment requests

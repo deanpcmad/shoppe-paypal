@@ -1,13 +1,15 @@
 # PayPal Shoppe Module
 
-**Currently in development**
+This module helps with including PayPal within your Shoppe application.
+The information below explains how to get this module installed within your Rails application.
 
-This module helps with including PayPal within your Shoppe application. The information below explains how to get this module installed within your Rails application.
+## Installing
 
 Add the gem to your Gemfile and run `bundle install`
 
 `gem "shoppe-paypal"`
 
+For the latest up to date documentation, please see the [Shoppe tutorial page](http://tryshoppe.com/docs/payment-gateways/paypal).
 
 ## Workflow
 
@@ -17,9 +19,10 @@ Add the gem to your Gemfile and run `bundle install`
 + Redirect the user to PayPal using the previous URL
 + User logs in & accepts payment
 + Redirected to success URL and payment details are stored with the order
-+ When the order is accepted, the payment will be executed/captured
-
++ Complete order
++ When the order is accepted in the Shoppe admin, the payment will be executed/captured
 
 ## To Do
 
++ Tests!
 + When rejecting an order, payment is not refunded

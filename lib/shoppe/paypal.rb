@@ -25,12 +25,12 @@ module Shoppe
         # Set the configuration
         Shoppe.add_settings_group :paypal, [:paypal_client_id, :paypal_secret_id, :currency]
 
-        # Require the Paypal library
+        # Require the PayPal library
         require 'paypal-sdk-rest'
         
         include PayPal::SDK::REST
 
-        # Configure the Paypal library
+        # Configure the PayPal library
         PayPal::SDK.configure({
           mode:          (Rails.env.production? ? "live" : "sandbox"),
           client_id:     Shoppe.settings.paypal_client_id,
