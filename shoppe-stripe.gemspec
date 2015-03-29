@@ -13,5 +13,6 @@ Gem::Specification.new do |s|
 
   s.files = Dir["{lib,vendor}/**/*", "Rakefile", "README.md"]
 
-  s.add_dependency "shoppe", "~> 1.0.0"
+  s.add_dependency "shoppe", "> 1", "< 2"
+  s.add_dependency "paypal-sdk-rest"
 end

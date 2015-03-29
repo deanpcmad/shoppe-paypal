@@ -2,6 +2,12 @@ en:
   shoppe:
     settings:
       labels:
-        paypal_api_username: API Username
-        paypal_api_password: API Password
-        paypal_api_signature: API Signature
+        paypal_client_id: Client ID
+        paypal_secret_id: Secret ID
+        paypal_currency: Currency
+
+      help:
+        paypal_currency: The currency which should be sent to PayPal with each of your payment requests
+
+      defaults:
+        paypal_currency: USD
