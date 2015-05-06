@@ -29,6 +29,8 @@ module Shoppe
 
         # When an order is accepted, attempt to capture/execute the payment
         Shoppe::Order.before_acceptance do
+          setup_paypal
+
           self.payments.where(confirmed: false, method: "PayPal").each do |payment|
             begin
               payment.paypal_payment.execute(payer_id: payment.order.properties["paypal_payer_id"])
