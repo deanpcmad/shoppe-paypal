@@ -34,12 +34,45 @@ module Shoppe
           self.payments.where(confirmed: false, method: "PayPal").each do |payment|
             begin
               payment.paypal_payment.execute(payer_id: payment.order.properties["paypal_payer_id"])
+
+              transaction = payment.paypal_payment.transactions.first.related_resources.first.sale.id
+
               payment.update_attribute(:confirmed, true)
+              payment.update_attribute(:reference, transaction)
             rescue
               raise Shoppe::Errors::PaymentDeclined, "Payment ##{payment.id} could not be captured by PayPal. Investigate with PayPal. Do not accept the order."
             end
           end
         end
+
+        # Refund the PayPal transaction
+        Shoppe::Payment.before_refund do
+          if self.method == "PayPal"
+            Shoppe::Paypal.setup_paypal
+
+            begin
+              @sale = PayPal::SDK::REST::Sale.find(self.reference)
+              @refund  = @sale.refund({
+                :amount => {
+                  :currency => Shoppe::Paypal.currency,
+                  :total => "#{'%.2f' % self.refundable_amount}"}
+              })
+                
+              # Check refund status
+              if @refund.success?
+                true
+              else
+                raise Shoppe::Errors::RefundFailed, message: "Unable to Refund" 
+                logger.error "Unable to Refund"
+                logger.error @refund.error.inspect
+              end
+            rescue
+              raise Shoppe::Errors::RefundFailed, message: "PayPal Sale '#{self.reference}' Not Found" 
+
+            end
+          end
+        end
+
       end
 
       # Setup the PayPal configuration
