@@ -29,7 +29,7 @@ module Shoppe
 
         # When an order is accepted, attempt to capture/execute the payment
         Shoppe::Order.before_acceptance do
-          setup_paypal
+          Shoppe::Paypal.setup_paypal
 
           self.payments.where(confirmed: false, method: "PayPal").each do |payment|
             begin
