@@ -1,8 +1,6 @@
 en:
   shoppe:
     settings:
-      paypal: PayPal
-
       labels:
         paypal_client_id: Client ID
         paypal_client_secret: Secret ID
