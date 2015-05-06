@@ -5,10 +5,11 @@ en:
 
       labels:
         paypal_client_id: Client ID
-        paypal_secret_id: Secret ID
+        paypal_client_secret: Secret ID
         paypal_currency: Currency Code
 
       help:
+        paypal_client_id: These details can be found after creating a REST API Application - https://developer.paypal.com/developer/applications
         paypal_currency: The currency which should be sent to PayPal with each of your payment requests
 
       defaults:
