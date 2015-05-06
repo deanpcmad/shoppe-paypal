@@ -1,6 +1,8 @@
 require 'shoppe/paypal/version'
 require 'shoppe/paypal/engine'
 
+require 'paypal-sdk-rest'
+
 require 'shoppe/paypal/order_extensions'
 require 'shoppe/paypal/payment_extensions'
 
@@ -25,18 +27,6 @@ module Shoppe
         # Set the configuration
         Shoppe.add_settings_group :paypal, [:paypal_client_id, :paypal_client_secret, :paypal_currency]
 
-        # Require the PayPal library
-        require 'paypal-sdk-rest'
-        
-        include PayPal::SDK::REST
-
-        # Configure the PayPal library
-        PayPal::SDK.configure({
-          mode:          (Rails.env.production? ? "live" : "sandbox"),
-          client_id:     Shoppe.settings.paypal_client_id,
-          client_secret: Shoppe.settings.paypal_secret_id
-        })
-
         # When an order is accepted, attempt to capture/execute the payment
         Shoppe::Order.before_acceptance do
           self.payments.where(confirmed: false, method: "PayPal").each do |payment|
@@ -48,7 +38,17 @@ module Shoppe
             end
           end
         end
+      end
 
+      # Setup the PayPal configuration
+      def setup_paypal
+        include PayPal::SDK::REST
+
+        PayPal::SDK.configure({
+          mode:          (Rails.env.production? ? "live" : "sandbox"),
+          client_id:     client_id,
+          client_secret: client_secret
+        })
       end
 
     end
