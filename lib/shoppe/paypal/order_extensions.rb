@@ -16,7 +16,7 @@ module Shoppe
             :amount => {
               :total => '%.2f' % self.total,
               :currency => Shoppe::Paypal.currency },
-            :description => "Order #{self.number}" } ] } )
+            :description => "Total: #{ '%.2f' % self.total }#{Shoppe::Paypal.currency} for Order #{self.number}" } ] } )
 
         if @payment.create
           @payment.links.find{|v| v.method == "REDIRECT" }.href
