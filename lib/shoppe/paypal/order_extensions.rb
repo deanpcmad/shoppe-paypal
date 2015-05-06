@@ -15,7 +15,7 @@ module Shoppe
           :transactions => [ {
             :amount => {
               :total => '%.2f' % self.total,
-              :currency => "EUR" },
+              :currency => Shoppe::Paypal.currency },
             :description => "Order #{self.number}" } ] } )
 
         if @payment.create

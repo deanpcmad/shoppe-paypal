@@ -23,7 +23,7 @@ module Shoppe
       
       def setup
         # Set the configuration
-        Shoppe.add_settings_group :paypal, [:paypal_client_id, :paypal_secret_id, :currency]
+        Shoppe.add_settings_group :paypal, [:paypal_client_id, :paypal_secret_id, :paypal_currency]
 
         # Require the PayPal library
         require 'paypal-sdk-rest'
