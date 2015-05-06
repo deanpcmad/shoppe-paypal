@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    shoppe-paypal (1.0.0)
+    shoppe-paypal (1.1.0)
       paypal-sdk-rest
       shoppe (> 1, < 2)
 
