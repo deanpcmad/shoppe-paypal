@@ -21,8 +21,9 @@ For the latest up to date documentation, please see the [Shoppe tutorial page](h
 + Redirected to success URL and payment details are stored with the order
 + Complete order
 + When the order is accepted in the Shoppe admin, the payment will be executed/captured
++ When the order is rejected, the payment is refunded
++ Refund payments from the Shoppe admin
 
 ## To Do
 
 + Tests!
-+ When rejecting an order, payment is not refunded
