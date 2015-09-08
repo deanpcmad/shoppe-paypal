@@ -22,7 +22,7 @@ module Shoppe
       end
 
       def mode
-        Shoppe.settings.paypal_mode
+        Shoppe.settings.paypal_mode ? 'sandbox' : 'live'
       end
 
       def setup
@@ -80,7 +80,7 @@ module Shoppe
         include PayPal::SDK::REST
 
         PayPal::SDK.configure({
-          mode:          mode ? 'sandbox' : 'live',
+          mode:          mode,
           client_id:     client_id,
           client_secret: client_secret
         })
