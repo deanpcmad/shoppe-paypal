@@ -8,9 +8,9 @@ require 'shoppe/paypal/payment_extensions'
 
 module Shoppe
   module Paypal
-    
+
     class << self
-      
+
       def client_id
         Shoppe.settings.paypal_client_id
       end
@@ -22,10 +22,14 @@ module Shoppe
       def currency
         Shoppe.settings.paypal_currency
       end
-      
+
+      def mode
+        Shoppe.settings.paypal_mode
+      end
+
       def setup
         # Set the configuration
-        Shoppe.add_settings_group :paypal, [:paypal_client_id, :paypal_client_secret, :paypal_currency]
+        Shoppe.add_settings_group :paypal, [:paypal_client_id, :paypal_client_secret, :paypal_currency, :paypal_mode]
 
         # When an order is accepted, attempt to capture/execute the payment
         Shoppe::Order.before_acceptance do
@@ -57,17 +61,17 @@ module Shoppe
                   :currency => Shoppe::Paypal.currency,
                   :total => "#{'%.2f' % self.refundable_amount}"}
               })
-                
+
               # Check refund status
               if @refund.success?
                 true
               else
-                raise Shoppe::Errors::RefundFailed, message: "Unable to Refund" 
+                raise Shoppe::Errors::RefundFailed, message: "Unable to Refund"
                 logger.error "Unable to Refund"
                 logger.error @refund.error.inspect
               end
             rescue
-              raise Shoppe::Errors::RefundFailed, message: "PayPal Sale '#{self.reference}' Not Found" 
+              raise Shoppe::Errors::RefundFailed, message: "PayPal Sale '#{self.reference}' Not Found"
 
             end
           end
@@ -80,7 +84,7 @@ module Shoppe
         include PayPal::SDK::REST
 
         PayPal::SDK.configure({
-          mode:          (Rails.env.production? ? "live" : "sandbox"),
+          mode:          mode ? 'sandbox' : 'live',
           client_id:     client_id,
           client_secret: client_secret
         })
