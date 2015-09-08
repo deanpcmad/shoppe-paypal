@@ -8,9 +8,7 @@ require 'shoppe/paypal/payment_extensions'
 
 module Shoppe
   module Paypal
-
     class << self
-
       def client_id
         Shoppe.settings.paypal_client_id
       end
@@ -72,11 +70,9 @@ module Shoppe
               end
             rescue
               raise Shoppe::Errors::RefundFailed, message: "PayPal Sale '#{self.reference}' Not Found"
-
             end
           end
         end
-
       end
 
       # Setup the PayPal configuration
@@ -89,7 +85,6 @@ module Shoppe
           client_secret: client_secret
         })
       end
-
     end
   end
 end
