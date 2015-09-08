@@ -5,10 +5,15 @@ en:
         paypal_client_id: Client ID
         paypal_client_secret: Secret ID
         paypal_currency: Currency Code
-        paypal_mode: Sandbox Mode
+        paypal_mode: Paypal Mode
 
       types:
         paypal_mode: boolean
+
+      options:
+        paypal_mode:
+          affirmative: Sandbox
+          negative: Live
 
       help:
         paypal_client_id: These details can be found after creating a REST API Application - https://developer.paypal.com/developer/applications
@@ -16,3 +21,4 @@ en:
 
       defaults:
         paypal_currency: USD
+        paypal_mode: true
