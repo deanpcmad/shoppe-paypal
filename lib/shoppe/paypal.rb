@@ -22,7 +22,7 @@ module Shoppe
       end
 
       def mode
-        Shoppe.settings.paypal_mode ? 'sandbox' : 'live'
+        Shoppe.settings.paypal_mode == 'live' ? 'live' : 'sandbox'
       end
 
       def setup
